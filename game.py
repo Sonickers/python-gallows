@@ -11,7 +11,7 @@ def game_board(miss_turn, hit_turn, chosen_word):
         print(letter, end='')
     print()
 
-    empty_places = '_' * len(chosen_word)
+    empty_places = '-' * len(chosen_word)
 
     for i in range(len(chosen_word)):
         if chosen_word[i] in hit_turn:
@@ -42,4 +42,23 @@ print("WELCOME TO GALLOWS!")
 miss_turn = ' '
 hit_turn = ' '
 chosen_word = choose_word(words)
-print(chosen_word)
+
+while True:
+    game_board(miss_turn, hit_turn, chosen_word)
+    turn = try_letter(hit_turn + miss_turn)
+    if turn in chosen_word:
+        hit_turn = hit_turn + turn
+
+        all_letters_up = True
+        for i in range(len(chosen_word)):
+            if chosen_word [i] not in hit_turn:
+                all_letters_up = False
+                break
+
+        if all_letters_up:
+            print("Yes! The word was: " + chosen_word + ". Good job!")
+            break
+    else:
+        miss_turn = miss_turn + turn
+
+
